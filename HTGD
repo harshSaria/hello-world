@@ -1,0 +1,32 @@
+% chamber condition
+Pc = 90; % atm
+Tc = 3000; % Kelvin
+of = 5; % oxidizer to fuel ratio
+hc = -2888.45; %  KJ/KG CEA
+sc = 18.6313 % KJ/(KG)(K) CEA
+gamma = 1.1765 % CEA
+
+
+
+ha = hc;
+tol = 0.0001
+n=1;
+error=1;
+while error>tol
+son = 985 + 0.02353*ha + 28.83*sc;
+u = sqrt(2*abs(hc-ha));
+if abs(u-son)~=5
+    h = ha+10;
+elseif abs(u-son)==5
+    break;
+end
+error=abs(h-ha);
+ha=h;
+n=n+1
+end
+rho = 35.45+0.0003845*ha - 1.649*sc;
+
+h1 = 1000;
+son1 = 985 + 0.02353*h1 + 28.83*sc;
+h2 = 100;
+son2 = 985 + 0.02353*h2 + 28.83*sc;
